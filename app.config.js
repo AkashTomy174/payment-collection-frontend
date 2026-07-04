@@ -7,6 +7,9 @@ module.exports = {
     userInterfaceStyle: "light",
     extra: {
       apiUrl: process.env.API_URL || "http://localhost:3000",
+      eas: {
+        projectId: "de527a88-1742-404e-b722-6ad132380c38",
+      },
     },
   },
 };
