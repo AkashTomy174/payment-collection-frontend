@@ -5,6 +5,9 @@ module.exports = {
     version: "1.0.0",
     orientation: "portrait",
     userInterfaceStyle: "light",
+    android: {
+      package: "com.akashtomy.paymentcollection",
+    },
     extra: {
       apiUrl: process.env.API_URL || "http://localhost:3000",
       eas: {
