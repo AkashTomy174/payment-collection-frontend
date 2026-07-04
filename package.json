@@ -8,6 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "build:apk": "eas build --platform android --profile preview",
     "lint": "tsc --noEmit",
     "test": "node --test"
   },
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.1.10",
+    "eas-cli": "^20.5.1",
     "typescript": "^5.7.2"
   }
 }

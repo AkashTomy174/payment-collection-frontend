@@ -1,7 +1,14 @@
 {
+  "cli": {
+    "version": ">= 20.5.1",
+    "appVersionSource": "remote"
+  },
   "build": {
     "preview": {
       "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
       "env": {
         "API_URL": "https://loan-api.akashtomy.com"
       }
