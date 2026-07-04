@@ -3,12 +3,12 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "API_URL": "https://api.yourdomain.com"
+        "API_URL": "https://loan-api.akashtomy.com"
       }
     },
     "production": {
       "env": {
-        "API_URL": "https://api.yourdomain.com"
+        "API_URL": "https://loan-api.akashtomy.com"
       }
     }
   }
