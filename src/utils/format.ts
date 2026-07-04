@@ -1,0 +1,16 @@
+export function formatCurrency(value: string | number) {
+  const number = typeof value === "number" ? value : Number(value);
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 2,
+  }).format(Number.isFinite(number) ? number : 0);
+}
+
+export function formatDate(value: string) {
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(value));
+}

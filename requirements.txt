@@ -1,0 +1,8 @@
+# System/runtime requirements for the Expo frontend build environment.
+# This project is Node.js/Expo, so Python venv is not used.
+nodejs>=20
+npm>=10
+eas-cli
+expo-cli
+git
+
