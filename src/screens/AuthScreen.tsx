@@ -1,3 +1,4 @@
+import Constants from "expo-constants";
 import { useState } from "react";
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { login, register, setAuthToken } from "../api/client";
@@ -13,6 +14,7 @@ type Props = {
 type Mode = "login" | "register";
 
 export function AuthScreen({ onAuthenticated }: Props) {
+  const buildId = (Constants.expoConfig?.extra as { buildId?: string } | undefined)?.buildId ?? "local";
   const [mode, setMode] = useState<Mode>("login");
   const [name, setName] = useState("Demo Customer");
   const [email, setEmail] = useState("demo@example.com");
@@ -77,6 +79,8 @@ export function AuthScreen({ onAuthenticated }: Props) {
         <Text style={styles.demoText}>demo@example.com / password123</Text>
         <Text style={styles.demoTitle}>Admin login</Text>
         <Text style={styles.demoText}>admin@example.com / password123</Text>
+        <Text style={styles.demoTitle}>Build id</Text>
+        <Text style={styles.demoText}>{buildId}</Text>
       </View>
     </ScrollView>
   );

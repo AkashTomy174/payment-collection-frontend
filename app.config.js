@@ -10,6 +10,11 @@ module.exports = {
     },
     extra: {
       apiUrl: process.env.API_URL || "http://localhost:3000",
+      buildId:
+        process.env.EXPO_PUBLIC_BUILD_ID ||
+        process.env.EAS_BUILD_GIT_COMMIT_HASH?.slice(0, 7) ||
+        process.env.GITHUB_SHA?.slice(0, 7) ||
+        "local",
       eas: {
         projectId: "de527a88-1742-404e-b722-6ad132380c38",
       },
