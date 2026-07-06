@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { BackHandler, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
   useFonts as usePlexSans,
@@ -11,7 +11,7 @@ import {
   IBMPlexMono_400Regular,
   IBMPlexMono_500Medium,
 } from "@expo-google-fonts/ibm-plex-mono";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { colors, fonts } from "./src/theme/tokens";
 import type { AuthUser, Customer } from "./src/types";
 import { setAuthToken } from "./src/api/client";
@@ -35,6 +35,23 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>("loan");
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [user, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    const subscription = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (!user || !customer) {
+        return false;
+      }
+
+      if (screen !== "loan") {
+        setScreen("loan");
+        return true;
+      }
+
+      return false;
+    });
+
+    return () => subscription.remove();
+  }, [customer, screen, user]);
 
   if (!sansLoaded || !monoLoaded) {
     return (
@@ -80,9 +97,9 @@ export default function App() {
         />
       ) : null}
       {screen === "payment" && customer ? (
-        <MakePaymentScreen customer={customer} setCustomer={setCustomer} goBack={() => setScreen("loan")} />
+        <MakePaymentScreen customer={customer} setCustomer={setCustomer} logout={logout} goBack={() => setScreen("loan")} />
       ) : null}
-      {screen === "history" && customer ? <PaymentHistoryScreen customer={customer} goBack={() => setScreen("loan")} /> : null}
+      {screen === "history" && customer ? <PaymentHistoryScreen customer={customer} logout={logout} goBack={() => setScreen("loan")} /> : null}
     </SafeAreaView>
   );
 }

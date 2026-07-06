@@ -12,10 +12,11 @@ import { formatCurrency, formatDate } from "../utils/format";
 type Props = {
   customer: Customer;
   setCustomer: (customer: Customer) => void;
+  logout: () => void;
   goBack: () => void;
 };
 
-export function MakePaymentScreen({ customer, setCustomer, goBack }: Props) {
+export function MakePaymentScreen({ customer, setCustomer, logout, goBack }: Props) {
   const [amount, setAmount] = useState(customer.emi_due);
   const [payment, setPayment] = useState<Payment | null>(null);
   const [error, setError] = useState("");
@@ -51,7 +52,10 @@ export function MakePaymentScreen({ customer, setCustomer, goBack }: Props) {
   return (
     <ScrollView contentContainerStyle={styles.screen} keyboardShouldPersistTaps="handled">
       <View style={styles.header}>
-        <Text style={styles.eyebrow}>PAYING-IN SLIP</Text>
+        <View style={styles.headerTop}>
+          <Text style={styles.eyebrow}>PAYING-IN SLIP</Text>
+          <Text onPress={logout} style={styles.logout}>Logout</Text>
+        </View>
         <Text style={styles.title}>Make Payment</Text>
         <Text style={styles.subtitle}>Confirm the EMI amount before submitting the collection entry.</Text>
       </View>
@@ -101,6 +105,11 @@ const styles = StyleSheet.create({
   header: {
     gap: 6,
   },
+  headerTop: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   eyebrow: {
     color: colors.slateMuted,
     fontFamily: fonts.sansMedium,
@@ -117,6 +126,11 @@ const styles = StyleSheet.create({
     fontFamily: fonts.sans,
     fontSize: 14,
     lineHeight: 20,
+  },
+  logout: {
+    color: colors.deepTeal,
+    fontFamily: fonts.sansMedium,
+    fontSize: 13,
   },
   paymentCard: {
     borderColor: colors.deepTeal,

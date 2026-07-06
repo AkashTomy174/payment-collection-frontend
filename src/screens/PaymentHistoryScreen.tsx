@@ -8,10 +8,11 @@ import { PrimaryButton } from "../components/PrimaryButton";
 
 type Props = {
   customer: Customer;
+  logout: () => void;
   goBack: () => void;
 };
 
-export function PaymentHistoryScreen({ customer, goBack }: Props) {
+export function PaymentHistoryScreen({ customer, logout, goBack }: Props) {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [pagination, setPagination] = useState<Pagination | null>(null);
   const [page, setPage] = useState(1);
@@ -33,7 +34,10 @@ export function PaymentHistoryScreen({ customer, goBack }: Props) {
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <View style={styles.header}>
-        <Text style={styles.eyebrow}>PASSBOOK ENTRIES</Text>
+        <View style={styles.headerTop}>
+          <Text style={styles.eyebrow}>PASSBOOK ENTRIES</Text>
+          <Text onPress={logout} style={styles.logout}>Logout</Text>
+        </View>
         <Text style={styles.title}>Payment History</Text>
         <View style={styles.accountPill}>
           <Text style={styles.account}>{customer.account_number}</Text>
@@ -107,6 +111,11 @@ const styles = StyleSheet.create({
   header: {
     gap: 8,
   },
+  headerTop: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   eyebrow: {
     color: colors.slateMuted,
     fontFamily: fonts.sansMedium,
@@ -117,6 +126,11 @@ const styles = StyleSheet.create({
     color: colors.inkNavy,
     fontFamily: fonts.sansSemiBold,
     fontSize: 26,
+  },
+  logout: {
+    color: colors.deepTeal,
+    fontFamily: fonts.sansMedium,
+    fontSize: 13,
   },
   accountPill: {
     alignSelf: "flex-start",
