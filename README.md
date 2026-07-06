@@ -21,6 +21,7 @@ For Android emulator, use your machine IP or `http://10.0.2.2:3000` depending on
 - Loan Details
 - Make Payment
 - Payment History
+- Admin Dashboard
 - Successful Payment Stamp
 
 ## Demo Login
@@ -31,6 +32,15 @@ Password: password123
 ```
 
 The demo user is linked to loan account `AC10293847`.
+
+Admin login:
+
+```text
+Email: admin@example.com
+Password: password123
+```
+
+The admin account can view all loans and payment history in the dashboard.
 
 ## Build
 

@@ -16,6 +16,7 @@ import { colors, fonts } from "./src/theme/tokens";
 import type { AuthUser, Customer } from "./src/types";
 import { setAuthToken } from "./src/api/client";
 import { AuthScreen } from "./src/screens/AuthScreen";
+import { AdminDashboardScreen } from "./src/screens/AdminDashboardScreen";
 import { LoanDetailsScreen } from "./src/screens/LoanDetailsScreen";
 import { MakePaymentScreen } from "./src/screens/MakePaymentScreen";
 import { PaymentHistoryScreen } from "./src/screens/PaymentHistoryScreen";
@@ -61,7 +62,7 @@ export default function App() {
     );
   }
 
-  if (!user || !customer) {
+  if (!user) {
     return (
       <SafeAreaView style={styles.safe}>
         <StatusBar style="dark" />
@@ -81,6 +82,26 @@ export default function App() {
     setUser(null);
     setCustomer(null);
     setScreen("loan");
+  }
+
+  if (user.role === "admin") {
+    return (
+      <SafeAreaView style={styles.safe}>
+        <StatusBar style="dark" />
+        <AdminDashboardScreen user={user} logout={logout} />
+      </SafeAreaView>
+    );
+  }
+
+  if (!customer) {
+    return (
+      <SafeAreaView style={styles.safe}>
+        <StatusBar style="dark" />
+        <View style={styles.loading}>
+          <Text style={styles.loadingText}>Loading...</Text>
+        </View>
+      </SafeAreaView>
+    );
   }
 
   return (

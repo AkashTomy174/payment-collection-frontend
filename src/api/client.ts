@@ -45,6 +45,26 @@ export async function getCustomer(accountNumber: string) {
   return body.data;
 }
 
+export async function getAdminCustomers(options: {
+  page?: number;
+  limit?: number;
+  sort?: "account_number" | "issue_date" | "emi_due" | "id";
+  order?: "asc" | "desc";
+  accountNumber?: string;
+}) {
+  const params = new URLSearchParams();
+  params.set("page", String(options.page ?? 1));
+  params.set("limit", String(options.limit ?? 10));
+  params.set("sort", options.sort ?? "account_number");
+  params.set("order", options.order ?? "asc");
+
+  if (options.accountNumber?.trim()) {
+    params.set("accountNumber", options.accountNumber.trim());
+  }
+
+  return request<{ data: Customer[]; pagination: Pagination }>(`/api/customers/all?${params.toString()}`);
+}
+
 export async function makePayment(accountNumber: string, amount: number) {
   const body = await request<{ data: Payment; message: string }>("/api/payments", {
     method: "POST",

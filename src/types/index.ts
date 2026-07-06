@@ -15,12 +15,13 @@ export type AuthUser = {
   name: string;
   email: string;
   account_number: string;
+  role: "customer" | "admin";
 };
 
 export type AuthSession = {
   token: string;
   user: AuthUser;
-  customer: Customer;
+  customer: Customer | null;
 };
 
 export type Payment = {

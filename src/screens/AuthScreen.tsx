@@ -73,6 +73,8 @@ export function AuthScreen({ onAuthenticated }: Props) {
       <View style={styles.demoBox}>
         <Text style={styles.demoTitle}>Demo login</Text>
         <Text style={styles.demoText}>demo@example.com / password123</Text>
+        <Text style={styles.demoTitle}>Admin login</Text>
+        <Text style={styles.demoText}>admin@example.com / password123</Text>
       </View>
     </ScrollView>
   );
