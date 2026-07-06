@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { login, register, setAuthToken } from "../api/client";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { UnderlinedInput } from "../components/UnderlinedInput";
@@ -33,7 +33,9 @@ export function AuthScreen({ onAuthenticated }: Props) {
       setAuthToken(session.token);
       onAuthenticated(session);
     } catch (authError) {
-      setError(authError instanceof Error ? authError.message : "Authentication failed");
+      const message = authError instanceof Error ? authError.message : "Authentication failed";
+      setError(message);
+      Alert.alert(mode === "login" ? "Login failed" : "Registration failed", message);
     } finally {
       setLoading(false);
     }
@@ -145,6 +147,7 @@ const styles = StyleSheet.create({
     color: colors.alertRust,
     fontFamily: fonts.sans,
     fontSize: 13,
+    textAlign: "center",
   },
   demoBox: {
     borderColor: colors.hairline,
