@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { BackHandler, ScrollView, StyleSheet, Text, View } from "react-native";
 import { makePayment } from "../api/client";
 import { LedgerBlock } from "../components/LedgerBlock";
 import { PaymentStamp } from "../components/PaymentStamp";
@@ -21,6 +21,15 @@ export function MakePaymentScreen({ customer, setCustomer, logout, goBack }: Pro
   const [payment, setPayment] = useState<Payment | null>(null);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const subscription = BackHandler.addEventListener("hardwareBackPress", () => {
+      goBack();
+      return true;
+    });
+
+    return () => subscription.remove();
+  }, [goBack]);
 
   async function submit() {
     const numericAmount = Number(amount);
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
   screen: {
     gap: 16,
     padding: 20,
-    paddingBottom: 28,
+    paddingBottom: 64,
     backgroundColor: colors.paper,
     flexGrow: 1,
   },
@@ -162,6 +171,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     marginTop: "auto",
+    marginBottom: 20,
     gap: 10,
   },
   error: {

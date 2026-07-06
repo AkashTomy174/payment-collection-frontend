@@ -1,4 +1,4 @@
-import { BackHandler, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
   useFonts as usePlexSans,
@@ -11,7 +11,7 @@ import {
   IBMPlexMono_400Regular,
   IBMPlexMono_500Medium,
 } from "@expo-google-fonts/ibm-plex-mono";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { colors, fonts } from "./src/theme/tokens";
 import type { AuthUser, Customer } from "./src/types";
 import { setAuthToken } from "./src/api/client";
@@ -36,26 +36,6 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>("loan");
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [user, setUser] = useState<AuthUser | null>(null);
-
-  useEffect(() => {
-    const subscription = BackHandler.addEventListener("hardwareBackPress", () => {
-      if (!user) {
-        return false;
-      }
-
-      if (user.role === "admin") {
-        return false;
-      }
-
-      if (screen !== "loan") {
-        setScreen("loan");
-      }
-
-      return true;
-    });
-
-    return () => subscription.remove();
-  }, [customer, screen, user]);
 
   if (!sansLoaded || !monoLoaded) {
     return (

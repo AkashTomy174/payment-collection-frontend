@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
 import { getCustomer } from "../api/client";
 import { LedgerBlock } from "../components/LedgerBlock";
 import { PrimaryButton } from "../components/PrimaryButton";

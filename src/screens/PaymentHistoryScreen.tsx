@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, BackHandler, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getPayments } from "../api/client";
 import { colors, fonts } from "../theme/tokens";
 import type { Customer, Pagination, Payment } from "../types";
@@ -18,6 +18,15 @@ export function PaymentHistoryScreen({ customer, logout, goBack }: Props) {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const subscription = BackHandler.addEventListener("hardwareBackPress", () => {
+      goBack();
+      return true;
+    });
+
+    return () => subscription.remove();
+  }, [goBack]);
 
   useEffect(() => {
     setLoading(true);
@@ -104,7 +113,7 @@ const styles = StyleSheet.create({
   screen: {
     gap: 12,
     padding: 20,
-    paddingBottom: 28,
+    paddingBottom: 88,
     backgroundColor: colors.paper,
     flexGrow: 1,
   },
@@ -253,5 +262,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     marginTop: "auto",
+    marginBottom: 20,
   },
 });
