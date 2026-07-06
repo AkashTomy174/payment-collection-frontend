@@ -48,7 +48,7 @@ export function AdminDashboardScreen({ user, logout }: Props) {
         return true;
       }
 
-      return false;
+      return true;
     });
 
     return () => subscription.remove();

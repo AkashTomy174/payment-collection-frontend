@@ -39,16 +39,19 @@ export default function App() {
 
   useEffect(() => {
     const subscription = BackHandler.addEventListener("hardwareBackPress", () => {
-      if (!user || !customer) {
+      if (!user) {
+        return false;
+      }
+
+      if (user.role === "admin") {
         return false;
       }
 
       if (screen !== "loan") {
         setScreen("loan");
-        return true;
       }
 
-      return false;
+      return true;
     });
 
     return () => subscription.remove();
